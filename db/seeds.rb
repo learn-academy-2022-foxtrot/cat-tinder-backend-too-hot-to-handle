@@ -28,4 +28,3 @@ cats.each do |each_cat|
   puts "creating cat #{each_cat}"
 end
 
-Cats.create(name:"Fluffy", age:3, enjoys:"chasing rats", image:"dfhi")
