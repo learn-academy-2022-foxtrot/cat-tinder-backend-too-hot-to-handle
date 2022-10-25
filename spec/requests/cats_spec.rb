@@ -1,6 +1,21 @@
 require 'rails_helper'
 
 RSpec.describe "Cats", type: :request do
+
+  it "doesn't create a cat without a name" do
+    cat_params = {
+      cat: {
+        age: 2,
+        enjoys: "eating",
+        image: "https://images.unsplash.com/photo-1495360010541-f48722b34f7d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=736&q=80"
+      }
+    }
+    post '/cats', params: cat_params
+    expect(response.status).to eq 422
+    json = JSON.parse(response.body)
+    expect(json['name']).to include "can't be blank"
+  end
+
   describe "GET /index" do
     it "gets a list of cats" do
       Cat.create(
@@ -39,4 +54,3 @@ describe "POST /create" do
   expect(cat.image).to eq 'https://i.etsystatic.com/26335741/r/il/caca72/3015003196/il_794xN.3015003196_e6c4.jpg'
    end
 end
-
